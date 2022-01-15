@@ -1,0 +1,42 @@
+<div class="mx-auto px-0 py-4 mb-2">
+    <div class="card card-form">
+        <div class="card-body text-center py-auto">
+            <p class="cart-title mb-0" style="font-size: 1.5rem">Update Infomation</p>
+        </div>
+        <div class="card-body pt-0">
+            <form method="POST" action="/update-info">
+                <div class="form-group mb-0">
+                    <label for="Fname">First Name</label>
+                    <input type="text" class="form-control mb-2 {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "Fname"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" id="Fname" name="Fname" value="{{user.first_name}}">
+                </div>
+                {{#each errorMessage}}
+                {{#ifEquals this.param "Fname"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                {{/each}}
+                <div class="form-group mb-0">
+                    <label for="Lname">Last Name</label>
+                    <input type="text" class="form-control mb-2 {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "Lname"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" id="Lname" name="Lname" value="{{user.last_name}}">
+                </div>
+                {{#each errorMessage}}
+                {{#ifEquals this.param "Lname"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                {{/each}}
+                <div class="form-group mb-0">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" class="form-control mb-2 {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "phone"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" id="phone" name="phone" value="{{user.phone}}">
+                </div>
+                {{#each errorMessage}}
+                {{#ifEquals this.param "phone"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                {{/each}}
+                <div class="form-group mb-0">
+                    <label for="dob">Day of birth</label>
+                    <input type="date" class="form-control mb-2 {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "dob"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" id="dob" name="dob" value="{{user.DOB}}">
+                </div>
+                {{#each errorMessage}}
+                {{#ifEquals this.param "dob"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                {{/each}}
+                <div class="form-check px-0">
+                    <button type="submit" class="btn btn-dark text-center w-100">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,181 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2" style="min-height: 100vh; background-color: rgb(43, 134, 122);">
+            <h3 class="mt-4 text-white">MANAGEMENT</h3>
+            <hr style="border: 1px solid #fff">
+            <a href="/management/accounts" class="btn btn-light w-100 mb-3">Account Management</a>
+            <a href="/management/courses" class="btn text-white w-100 mb-3">Course Management</a>
+        </div>
+        <div class="col-10 mt-4">
+            <h2 class="text-center">ACCOUNT MANAGEMENT</h2>
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center justify-content-between mb-2 my-3">
+            <h6 class="ml-3">Total number of users: {{totalUsers}}</h6>
+                <div class="input-group input-group-outline w-50" style="margin-left: -3rem">
+                    <input type="text" class="form-control border-primary" id="searchInput" placeholder="Searching user...">
+                </div> 
+                <button type="button" class="btn btn-success {{#if autoshow}}autoshow{{/if}}" data-toggle="modal" data-target="#addUser" style="height: 2.5rem;">
+                    <i class="fa fa-fw fa-plus-circle"></i> Add New User
+                </button>
+                <div class="modal fade" id="addUser" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Add New User</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="/admin/add-user" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group mb-0">
+                                            <label class="email">Email</label>
+                                            <input type="email" class="form-control {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "email"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" name="email" value="{{#if email}}{{email}}{{/if}}">
+                                        </div>
+                                        {{#each errorMessage}}
+                                        {{#ifEquals this.param "email"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                                        {{/each}}
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div class="form-group mb-0">
+                                                    <label class="password mb-0 mt-2">Password</label>
+                                                    <input type="password" class="form-control {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "password"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" name="password">
+                                                </div>
+                                                {{#each errorMessage}}
+                                                {{#ifEquals this.param "password"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                                                {{/each}}
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group mb-0">
+                                                    <label class="role mb-0 mt-2">Role</label>
+                                                    <select class="form-control rounded" aria-label="Default select example" name="role">
+                                                        <option value="Admin" {{#ifEquals role "Admin"}}selected{{/ifEquals}}>Admin</option>
+                                                        <option value="Teacher" {{#ifEquals role "Teacher"}}selected{{/ifEquals}}>Teacher</option>
+                                                        <option value="Student" {{#ifEquals role "Student"}}selected{{/ifEquals}}>Student</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group mb-0">
+                                                    <label class="fname mb-0 mt-2">First Name</label>
+                                                    <input type="text" class="form-control {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "fname"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" name="fname" value="{{#if fname}}{{fname}}{{/if}}">
+                                                 </div>
+                                                {{#each errorMessage}}
+                                                {{#ifEquals this.param "fname"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                                                {{/each}}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group mb-0">
+                                                    <label class="lname mb-0 mt-2">Last Name</label>
+                                                    <input type="text" class="form-control {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "lname"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" name="lname" value="{{#if lname}}{{lname}}{{/if}}">
+                                                 </div>
+                                                {{#each errorMessage}}
+                                                {{#ifEquals this.param "lname"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group mb-0">
+                                                    <label class="phone mb-0 mt-2">Phone Number</label>
+                                                    <input type="text" class="form-control {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "phone"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" name="phone" value="{{#if phone}}{{phone}}{{/if}}">
+                                                 </div>
+                                                {{#each errorMessage}}
+                                                {{#ifEquals this.param "phone"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                                                {{/each}}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group mb-0">
+                                                    <label class="dob mb-0 mt-2">Day of birth</label>
+                                                    <input type="date" class="form-control {{#if errorMessage}}{{#each errorMessage}}{{#ifEquals this.param "dob"}}error{{/ifEquals}}{{/each}}{{else}}form-input{{/if}}" name="dob" value="{{#if dob}}{{dob}}{{/if}}">
+                                                 </div>
+                                                {{#each errorMessage}}
+                                                {{#ifEquals this.param "dob"}}<div class="error-msg mb-3">{{this.msg}}</div>{{/ifEquals}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="courseId" value="{{courseId}}">
+                                        <button type="button" class="btn btn-secondary cancel-btn" data-dismiss="modal">Cancel</button>
+                                        <button id="addlesson-btn" onclick="changeToLoading()" type="submit" class="btn btn-success" style="min-width: 4rem">Add</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>  
+            </div>
+            
+            <table id="userTable" class="table align-items-center mb-0 mt-2" style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" onclick="sortTable(0)">Full Name &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header w-25" onclick="sortTable(1)">Email &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" onclick="sortTable(2)">Phone Number &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" onclick="sortTable(3)">Day of birth &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" onclick="sortTable(4)">Permission &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" style="width: 8rem"></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    {{#each users}}
+                    <tr>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-start">
+                                <h6 class="mb-0 text-md">{{this.first_name}} {{this.last_name}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">{{this.email}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">{{this.phone}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">{{this.DOB}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">{{this.permission}}</h6>
+                            </div>
+                        </td>
+                        <td class="py-2">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                            <div class="modal fade" id="a{{this._id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Delete User</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to delete this user?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            <a type="button" class="btn btn-danger" href='/delete-user/{{this._id}}'>Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

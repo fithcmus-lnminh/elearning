@@ -1,0 +1,87 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2" style="min-height: 100vh; background-color: rgb(43, 134, 122);">
+            <h3 class="mt-4 text-white">MANAGEMENT</h3>
+            <hr style="border: 1px solid #fff">
+            <a href="/management/accounts" class="btn text-white w-100 mb-3">Account Management</a>
+            <a href="/management/courses" class="btn btn-light w-100 mb-3">Course Management</a>
+        </div>
+        <div class="col-10 mt-4">
+            <h2 class="text-center">COURSES MANAGEMENT</h2>
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center justify-content-center mb-2 my-3">
+            <h6 class="ml-3" style="position: absolute; left: 1rem">Total number of courses: {{totalCourse}}</h6>
+                <div class="input-group input-group-outline w-50">
+                    <input type="text" class="form-control border-primary" id="searchInput" placeholder="Searching user...">
+                </div> 
+            </div>
+            
+            <table id="userTable" class="table align-items-center mb-0 mt-2" style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header w-25" onclick="sortTable(0)">NAME &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" style="width: 30%" onclick="sortTable(1)">DESCRIPTION &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" onclick="sortTable(2)">PRICE &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" style="width: 16%" onclick="sortTable(3)">TEACHER &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" onclick="sortTable(4)">STUDENTS &#9650</th>
+                        <th class="text-uppercase text-secondary text-md font-weight-bolder text-center table-header" style="width: 8rem"></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    {{#each courses}}
+                    <tr>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-start">
+                                <h6 class="mb-0 text-md">{{this.courseName}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">{{this.des}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">${{this.price}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">{{this.teacher}}</h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-4 py-1 justify-content-center">
+                                <h6 class="mb-0 text-md">{{this.studentAmount}}</h6>
+                            </div>
+                        </td>
+                        <td class="py-2">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                            <div class="modal fade" id="a{{this._id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Delete Course</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to delete <strong>{{this.courseName}}</strong> ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            <a type="button" class="btn btn-danger" href='/admin/delete-course/{{this._id}}'>Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
